@@ -7,15 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <!-- Add AFTER the main GSAP script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
         .logo-font { font-family: 'Anton', sans-serif; }
         .hero-clip { border-radius: 2rem; overflow: hidden; position: relative; }
         @media (min-width: 768px) { .hero-clip { border-radius: 3.5rem; } }
         
-        /* Dropdown Visibility Fix */
         .dropdown-menu { 
             display: none; 
             opacity: 0; 
@@ -29,6 +27,9 @@
         }
         .slide { position: absolute; inset: 0; opacity: 0; display: none; }
         .slide.active { opacity: 1; display: block; }
+
+        /* Mobile Menu Style */
+        #mobile-menu { transform: translateX(100%); }
     </style>
 </head>
 <body class="antialiased">
@@ -40,31 +41,51 @@
             </div>
 
             <ul class="hidden md:flex items-center space-x-10 text-[11px] font-bold uppercase tracking-[0.2em]">
-                <li class="hover:opacity-60 cursor-pointer">New Drops</li>
+                <li class="hover:opacity-60 cursor-pointer"><a href="#new-drops">New Drops</a></li>
                 <li class="group relative py-2">
                     <span class="cursor-pointer flex items-center gap-1">Categories ▾</span>
-                    <ul class="dropdown-menu absolute top-full left-0 w-48 bg-white text-black p-5 rounded-2xl shadow-2xl">
-                        <li class="py-2 hover:pl-2 transition-all text-[10px] cursor-pointer">Infants (0-12M)</li>
-                        <li class="py-2 hover:pl-2 transition-all text-[10px] cursor-pointer">Toddlers (1-3Y)</li>
-                        <li class="py-2 hover:pl-2 transition-all text-[10px] cursor-pointer">Kids (4-7Y)</li>
-                        <li class="py-2 hover:pl-2 transition-all text-[10px] cursor-pointer">Accessories</li>
+                    <ul class="dropdown-menu absolute top-full left-0 w-56 bg-white text-black p-5 rounded-2xl shadow-2xl">
+                        <li class="py-2 hover:pl-2 transition-all text-[10px] cursor-pointer border-b border-gray-100"><a href="#categories">Footwear</a></li>
+                        <li class="py-2 hover:pl-2 transition-all text-[10px] cursor-pointer border-b border-gray-100"><a href="#categories">Clothes (0-7 Years)</a></li>
+                        <li class="py-2 hover:pl-2 transition-all text-[10px] cursor-pointer border-b border-gray-100"><a href="#categories">Clothes (8-11 Years)</a></li>
+                        <li class="py-2 hover:pl-2 transition-all text-[10px] cursor-pointer"><a href="#categories">Clothes (12-15 Years)</a></li>
                     </ul>
                 </li>
-                <li class="hover:opacity-60 cursor-pointer">Our Story</li>
+                <li class="hover:opacity-60 cursor-pointer"><a href="#contact">Contact</a></li>
             </ul>
 
-            <div class="bg-white/10 p-2 rounded-full backdrop-blur-md">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.112 16.835a2.25 2.25 0 0 1-2.244 2.398H5.027a2.25 2.25 0 0 1-2.244-2.398L3.895 8.507a2.25 2.25 0 0 1 2.244-2.398h12.712a2.25 2.25 0 0 1 2.244 2.398Z" /></svg>
+            <div class="flex items-center gap-4">
+                <div class="bg-white/10 p-2 rounded-full backdrop-blur-md cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.112 16.835a2.25 2.25 0 0 1-2.244 2.398H5.027a2.25 2.25 0 0 1-2.244-2.398L3.895 8.507a2.25 2.25 0 0 1 2.244-2.398h12.712a2.25 2.25 0 0 1 2.244 2.398Z" /></svg>
+                </div>
+                <button id="menu-toggle" class="md:hidden bg-white text-black p-2 rounded-full relative z-[250]">
+                    <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path id="path1" stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+                    </svg>
+                </button>
             </div>
         </nav>
     </header>
 
+    <div id="mobile-menu" class="fixed inset-0 bg-black z-[150] flex flex-col justify-center px-10 transition-transform duration-500">
+        <ul class="space-y-8">
+            <li><a href="#new-drops" class="mobile-link logo-font text-5xl uppercase">New Drops</a></li>
+            <li>
+                <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-4">Categories</p>
+                <ul class="space-y-4 pl-4 border-l border-white/10">
+                    <li><a href="#categories" class="mobile-link text-2xl font-bold uppercase">Footwear</a></li>
+                    <li><a href="#categories" class="mobile-link text-2xl font-bold uppercase text-white/60">0-7 Years</a></li>
+                    <li><a href="#categories" class="mobile-link text-2xl font-bold uppercase text-white/60">8-11 Years</a></li>
+                    <li><a href="#categories" class="mobile-link text-2xl font-bold uppercase text-white/60">12-15 Years</a></li>
+                </ul>
+            </li>
+            <li><a href="#contact" class="mobile-link logo-font text-5xl uppercase">Contact</a></li>
+        </ul>
+    </div>
 
     <main class="pt-20 md:pt-24 px-4 md:px-6">
         <div class="relative h-[80vh] md:h-[85vh] w-full hero-clip bg-[#111]">
-            
             <div id="carousel-container" class="h-full w-full">
-                
                 <div class="slide active absolute inset-0">
                     <div class="slide-img absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&q=80&w=2000');"></div>
                     <div class="absolute inset-0 bg-black/30"></div>
@@ -78,280 +99,126 @@
                         </a>
                     </div>
                 </div>
-
-                <div class="slide absolute inset-0">
-                    <div class="slide-img absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&q=80&w=2000');"></div>
-                    <div class="absolute inset-0 bg-black/30"></div>
-                    <div class="absolute bottom-12 left-8 md:left-16 z-20">
-                        <h1 class="slide-title logo-font text-6xl md:text-9xl uppercase leading-[0.85] mb-6">Newborn<br>Essentials</h1>
-                        <a href="#" class="inline-flex items-center bg-white text-black px-8 py-4 rounded-full group hover:scale-105 transition-transform">
-                            <span class="text-[11px] font-black uppercase tracking-widest mr-4">Explore Collection</span>
-                            <div class="bg-black text-white p-1 rounded-full group-hover:rotate-45 transition-transform">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" /></svg>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="absolute bottom-12 right-8 flex gap-2 z-30">
-                <div class="w-12 h-1 bg-white/20 rounded-full overflow-hidden"><div class="bar-inner w-0 h-full bg-white"></div></div>
-                <div class="w-12 h-1 bg-white/20 rounded-full overflow-hidden"><div class="bar-inner w-0 h-full bg-white"></div></div>
             </div>
         </div>
-        <section class="py-24 bg-transparent px-4 md:px-0">
+
+        <section id="new-drops" class="py-24 bg-transparent px-4 md:px-0">
             <div class="max-w-[1440px] mx-auto">
                 <div class="mb-16 scroll-reveal">
                     <h2 class="logo-font text-6xl md:text-8xl uppercase leading-none mb-6">Born to Lead.</h2>
                     <p class="text-gray-400 text-sm md:text-lg max-w-2xl leading-relaxed">
-                        The next generation doesn't follow trends—they set them. Discover our latest drop of organic, street-ready essentials designed for the little icons who are already breaking the mold. Premium comfort for the loudest voices in the room.
+                        The next generation doesn't follow trends—they set them. Discover our latest drop.
                     </p>
                 </div>
-        
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    
                     <div class="scroll-reveal group cursor-pointer">
                         <div class="relative aspect-[4/5] rounded-[3rem] overflow-hidden bg-[#111] mb-6">
-                            <div class="absolute top-6 left-6 z-20 bg-white text-black px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter">
-                                New Drop
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&q=80&w=1000" 
-                                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                                 alt="Baby Streetwear 1">
+                            <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Product">
                         </div>
-                        <h3 class="logo-font text-3xl md:text-4xl uppercase tracking-tighter group-hover:text-gray-400 transition-colors">Cloud One-Sie</h3>
-                        <p class="text-gray-500 text-xs uppercase tracking-[0.2em] mt-2">Organic Cotton Heavyweight</p>
+                        <h3 class="logo-font text-3xl md:text-4xl uppercase tracking-tighter">Cloud One-Sie</h3>
                     </div>
-        
-                    <div class="scroll-reveal group cursor-pointer">
-                        <div class="relative aspect-[4/5] rounded-[3rem] overflow-hidden bg-[#111] mb-6">
-                            <div class="absolute top-6 left-6 z-20 bg-white text-black px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter">
-                                Limited
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=1000" 
-                                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                                 alt="Baby Streetwear 2">
-                        </div>
-                        <h3 class="logo-font text-3xl md:text-4xl uppercase tracking-tighter group-hover:text-gray-400 transition-colors">Earth-Bound Set</h3>
-                        <p class="text-gray-500 text-xs uppercase tracking-[0.2em] mt-2">Two-Piece Utility Knit</p>
                     </div>
-        
-                    <div class="scroll-reveal group cursor-pointer">
-                        <div class="relative aspect-[4/5] rounded-[3rem] overflow-hidden bg-[#111] mb-6">
-                            <div class="absolute top-6 left-6 z-20 bg-white text-black px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter">
-                                New
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1515488442202-6a59c44c5bc4?auto=format&fit=crop&q=80&w=1000" 
-                                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                                 alt="Baby Streetwear 3">
-                        </div>
-                        <h3 class="logo-font text-3xl md:text-4xl uppercase tracking-tighter group-hover:text-gray-400 transition-colors">Shadow Ribbed Hoodie</h3>
-                        <p class="text-gray-500 text-xs uppercase tracking-[0.2em] mt-2">Signature Street Silhouette</p>
-                    </div>
-        
-                </div>
             </div>
         </section>
-        <section class="py-20 bg-transparent px-4 md:px-0 overflow-hidden">
+
+        <section id="categories" class="py-20 bg-transparent px-4 md:px-0 overflow-hidden">
             <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row items-start justify-between gap-10">
-                
                 <div class="w-full md:w-1/2 scroll-reveal">
                     <p class="text-[10px] uppercase tracking-[0.5em] text-gray-500 mb-8">Streetwear with a Story</p>
                     <h2 class="logo-font text-5xl md:text-7xl uppercase leading-[0.9] tracking-tighter">
-                        Wear the<br>
-                        Movement,<br>
-                        Break the<br>
-                        Mold.
+                        Wear the Movement.
                     </h2>
                 </div>
-        
                 <div class="w-full md:w-[45%] mt-6 md:mt-32 scroll-reveal">
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">Our collections are divided by age to ensure the perfect fit for every stage of growth.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-white text-black px-6 md:px-12">
+            <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <div class="scroll-reveal">
+                    <h2 class="logo-font text-5xl md:text-7xl uppercase leading-none mb-6">Why shop<br>with us?</h2>
+                </div>
+                </div>
+        </section>
+
+        <footer id="contact" class="bg-[#0A0A0A] pt-24 pb-12 relative overflow-hidden text-white">
+            <div class="max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
                     <div class="space-y-6">
-                        <p class="text-gray-400 text-sm md:text-base leading-relaxed font-medium">
-                            Born from the pulse of the streets, our brand is a tribute to the rebels, the dreamers, and the rule-breakers who shape the culture. Inspired by the raw energy of city life, we craft baby streetwear that speaks to individuality.
-                        </p>
-                        <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-                            Every stitch and every drop is a reflection of the movement, blending bold graphics with oversized silhouettes and urban edge. More than just clothing, we’re a statement—wear your story and define your own path.
-                        </p>
-                        
-                        <div class="pt-4">
-                            <a href="#" class="inline-flex items-center bg-[#111] text-white pl-6 pr-1 py-1 rounded-full group hover:bg-white hover:text-black transition-all duration-500 border border-white/10">
-                                <span class="text-[9px] font-bold uppercase tracking-[0.2em] mr-4">Get it now</span>
-                                <div class="bg-white text-black p-2.5 rounded-full group-hover:bg-black group-hover:text-white transition-all duration-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
-                                </div>
-                            </a>
-                        </div>
+                        <div class="logo-font text-3xl md:text-4xl uppercase tracking-tighter">Lola Kiddies<span class="text-white/20">.</span></div>
+                        <p class="text-gray-500 text-xs uppercase tracking-widest">support@lolakiddies.com</p>
                     </div>
-                </div>
-        
-            </div>
-        </section>
-        <section class="py-24 bg-black px-4 md:px-0 overflow-hidden">
-            <div class="max-w-[1440px] mx-auto flex flex-col lg:flex-row items-center gap-16">
-                
-                <div class="w-full lg:w-1/2 scroll-reveal order-2 lg:order-1">
-                    <h2 class="logo-font text-6xl md:text-8xl uppercase leading-[0.85] mb-8">
-                        NIGHTFALL<br>OVERSIZED<br>HOODIE
-                    </h2>
-                    <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-10 max-w-lg">
-                        A heavyweight, ultra-soft organic hoodie designed for maximum comfort and mini-streetwear style. Featuring a relaxed fit, reinforced stitching, and a vintage wash for that perfect lived-in look. Ready for the playground, built for the icon.
-                    </p>
-                    
-                    <div class="flex items-baseline gap-4 mb-10">
-                        <span class="logo-font text-5xl">$48</span>
-                        <span class="text-gray-600 text-2xl line-through font-bold">$64</span>
                     </div>
-        
-                    <a href="#" class="inline-flex items-center bg-white text-black pl-8 pr-2 py-2 rounded-full group hover:bg-gray-200 transition-all duration-300">
-                        <span class="text-[10px] font-black uppercase tracking-widest mr-6">Shop now</span>
-                        <div class="bg-black text-white p-3 rounded-full group-hover:rotate-45 transition-transform duration-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
-                        </div>
-                    </a>
+                <div class="absolute bottom-[-15%] left-1/2 -translate-x-1/2 opacity-[0.03] whitespace-nowrap z-0">
+                    <h1 class="logo-font text-[28vw] leading-none uppercase tracking-tighter">LOLA KIDDIES</h1>
                 </div>
-        
-                <div class="w-full lg:w-1/2 order-1 lg:order-2">
-                    <div class="relative group">
-                        <div class="aspect-[4/5] rounded-[3.5rem] overflow-hidden bg-[#111] mb-6 scroll-reveal">
-                            <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1200" 
-                                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
-                                 alt="Main Product View">
-                        </div>
-        
-                        <div class="grid grid-cols-4 gap-4 scroll-reveal">
-                            <div class="aspect-square rounded-2xl overflow-hidden border-2 border-white cursor-pointer">
-                                <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=400" class="w-full h-full object-cover">
-                            </div>
-                            <div class="aspect-square rounded-2xl overflow-hidden border-2 border-transparent hover:border-white/50 transition-colors cursor-pointer">
-                                <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=400" class="w-full h-full object-cover">
-                            </div>
-                            <div class="aspect-square rounded-2xl overflow-hidden border-2 border-transparent hover:border-white/50 transition-colors cursor-pointer">
-                                <img src="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?q=80&w=400" class="w-full h-full object-cover">
-                            </div>
-                            <div class="aspect-square rounded-2xl overflow-hidden border-2 border-transparent hover:border-white/50 transition-colors cursor-pointer">
-                                <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=400" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
             </div>
-        </section>
-       <section class="py-24 bg-white text-black px-6 md:px-12">
-    <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-        
-        <div class="scroll-reveal">
-            <h2 class="logo-font text-5xl md:text-7xl uppercase leading-none mb-6">Why shop<br>with us?</h2>
-            <p class="text-gray-500 text-sm md:text-lg max-w-md leading-relaxed">
-                We’ve got you covered with hassle-free shopping, top-tier service, and quality guarantees that keep you confident in every tiny purchase.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-            
-            <div class="scroll-reveal space-y-4">
-                <div class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 text-gray-400"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124l-.847-13.56a1.125 1.125 0 0 0-1.121-1.056H11.375a1.125 1.125 0 0 0-1.125 1.125v1.875m7.5 7.5v-1.5m-10.5-3.375a1.125 1.125 0 0 1 1.125-1.125h2.25a1.125 1.125 0 0 1 1.125 1.125v2.25a1.125 1.125 0 0 1-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z" /></svg>
-                </div>
-                <h4 class="logo-font text-xl uppercase tracking-tighter">Free Delivery</h4>
-                <p class="text-gray-500 text-xs md:text-sm leading-relaxed">Get your kiddies' streetwear fast and free, with no extra shipping costs on all orders.</p>
-            </div>
-
-            <div class="scroll-reveal space-y-4">
-                <div class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 text-gray-400"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6.223a9.91 9.91 0 0 0 1.24 7.319c.854 1.58 2.33 2.69 4.017 2.891a11.947 11.947 0 0 0 6.29 0c1.688-.201 3.163-1.311 4.017-2.891a9.91 9.91 0 0 0 1.24-7.319 11.959 11.959 0 0 1-8.402-3.509Z" /></svg>
-                </div>
-                <h4 class="logo-font text-xl uppercase tracking-tighter">100% Secure Payment</h4>
-                <p class="text-gray-500 text-xs md:text-sm leading-relaxed">Shop with confidence using encrypted, safe, and trusted payment methods for every parent.</p>
-            </div>
-
-            <div class="scroll-reveal space-y-4">
-                <div class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 text-gray-400"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
-                </div>
-                <h4 class="logo-font text-xl uppercase tracking-tighter">30 Days Return</h4>
-                <p class="text-gray-500 text-xs md:text-sm leading-relaxed">Not the perfect fit for your little one? No worries. Return or exchange hassle-free within 30 days.</p>
-            </div>
-
-            <div class="scroll-reveal space-y-4">
-                <div class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 text-gray-400"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" /></svg>
-                </div>
-                <h4 class="logo-font text-xl uppercase tracking-tighter">24/7 Support</h4>
-                <p class="text-gray-500 text-xs md:text-sm leading-relaxed">Got questions about sizing or fabrics? Our team is here for you anytime, anywhere.</p>
-            </div>
-
-        </div>
-    </div>
-</section>
-<footer class="bg-[#0A0A0A] pt-24 pb-12 relative overflow-hidden text-white">
-    <div class="max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-            
-            <div class="space-y-6">
-                <div class="logo-font text-3xl md:text-4xl uppercase tracking-tighter">
-                    Lola Kiddies<span class="text-white/20">.</span>
-                </div>
-                <p class="text-gray-500 text-xs md:text-sm uppercase tracking-widest leading-relaxed max-w-xs">
-                    Streetwear for the bold, built for the movement. Inspired by the raw energy of the streets.
-                </p>
-                <p class="text-gray-600 text-[10px] uppercase tracking-[0.2em] pt-4">
-                    © 2026 Copyright
-                </p>
-            </div>
-
-            <div>
-                <h4 class="logo-font text-xl uppercase mb-8 tracking-tighter">Menu</h4>
-                <ul class="space-y-4 text-gray-500 text-sm uppercase tracking-widest font-bold">
-                    <li class="hover:text-white transition-colors cursor-pointer">Home</li>
-                    <li class="hover:text-white transition-colors cursor-pointer">Shop</li>
-                    <li class="hover:text-white transition-colors cursor-pointer">About</li>
-                    <li class="hover:text-white transition-colors cursor-pointer">Contact</li>
-                    <li class="hover:text-white transition-colors cursor-pointer">Story</li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="logo-font text-xl uppercase mb-8 tracking-tighter">Shop</h4>
-                <ul class="space-y-4 text-gray-500 text-sm uppercase tracking-widest font-bold">
-                    <li class="hover:text-white transition-colors cursor-pointer">Collections</li>
-                    <li class="hover:text-white transition-colors cursor-pointer">New Arrival</li>
-                    <li class="hover:text-white transition-colors cursor-pointer">Newborn</li>
-                    <li class="hover:text-white transition-colors cursor-pointer">Toddlers</li>
-                    <li class="hover:text-white transition-colors cursor-pointer">Accessories</li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="logo-font text-xl uppercase mb-8 tracking-tighter">Social</h4>
-                <ul class="space-y-4 text-gray-500 text-sm uppercase tracking-widest font-bold">
-                    <li class="flex items-center gap-3 hover:text-white transition-colors cursor-pointer">
-                        <span class="w-4 h-4 border border-gray-700 rounded-sm flex items-center justify-center text-[8px]">IN</span> Instagram
-                    </li>
-                    <li class="flex items-center gap-3 hover:text-white transition-colors cursor-pointer">
-                        <span class="w-4 h-4 border border-gray-700 rounded-sm flex items-center justify-center text-[8px]">TW</span> Twitter
-                    </li>
-                    <li class="flex items-center gap-3 hover:text-white transition-colors cursor-pointer">
-                        <span class="w-4 h-4 border border-gray-700 rounded-sm flex items-center justify-center text-[8px]">FB</span> Facebook
-                    </li>
-                    <li class="flex items-center gap-3 hover:text-white transition-colors cursor-pointer">
-                        <span class="w-4 h-4 border border-gray-700 rounded-sm flex items-center justify-center text-[8px]">TK</span> Tiktok
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="absolute bottom-[-15%] left-1/2 -translate-x-1/2 select-none pointer-events-none opacity-[0.03] whitespace-nowrap z-0">
-            <h1 class="logo-font text-[28vw] leading-none uppercase tracking-tighter">
-                LOLA KIDDIES
-            </h1>
-        </div>
-    </div>
-</footer>
+        </footer>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        // --- Mobile Menu Logic ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                gsap.to(mobileMenu, { x: 0, duration: 0.6, ease: "expo.out" });
+                // Change to X icon
+                menuIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />`;
+                document.body.style.overflow = 'hidden';
+            } else {
+                gsap.to(mobileMenu, { x: '100%', duration: 0.6, ease: "expo.in" });
+                // Change back to Hamburger
+                menuIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />`;
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(isMenuOpen) toggleMenu();
+            });
+        });
+
+        // --- Existing Carousel/Scroll Logic ---
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            slides[currentSlide].style.opacity = 0;
+            slides[currentSlide].style.display = 'none';
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+            slides[currentSlide].style.display = 'block';
+            gsap.fromTo(slides[currentSlide], {opacity: 0}, {opacity: 1, duration: 1});
+        }
+
+        setInterval(nextSlide, 5000);
+
+        // GSAP Scroll Reveals
+        gsap.utils.toArray('.scroll-reveal').forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+    </script>
 </body>
 </html>
