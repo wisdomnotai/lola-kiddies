@@ -30,12 +30,29 @@
 
         /* Mobile Menu Style */
         #mobile-menu { transform: translateX(100%); }
+        /* Color Switch Styles */
+#main-header.header-dark {
+    color: #000000 !important;
+}
+
+#main-header.header-dark .bg-white\/10 {
+    background-color: rgba(0, 0, 0, 0.05); /* Darker bag icon background */
+}
+
+#main-header.header-dark .text-white\/40 {
+    color: rgba(0, 0, 0, 0.2); /* Faded dot in black */
+}
+
+/* Ensure dropdown remains legible */
+.dropdown-menu {
+    color: black !important;
+}
         
     </style>
 </head>
 <body class="antialiased">
 
-    <header class="fixed top-0 left-0 w-full z-[200] px-6 py-6 md:px-12 transition-all duration-500" id="main-header">
+    <header class="fixed top-0 left-0 w-full z-[200] px-6 py-6 md:px-12 transition-all duration-500 text-white" id="main-header">
         <nav class="max-w-[1440px] mx-auto flex items-center justify-between">
             <div class="logo-font text-2xl md:text-3xl tracking-tighter uppercase">
                 Lola Kiddies Wears<span class="text-white/40">.</span>
@@ -171,45 +188,44 @@
                 </div>
             </div>
         </section>
-        
-        <section id="our-story" class="py-20 md:py-32 bg-[#0a0a0a] text-white overflow-hidden">
-    <div class="max-w-[1200px] mx-auto px-6">
-        <div class="flex flex-col md:flex-row gap-12 md:gap-20 items-start">
-            
-            <div class="reveal opacity-0 -translate-x-10 transition-all duration-1000 ease-out md:w-1/2">
-                <span class="text-sm md:text-base font-bold uppercase tracking-[0.2em] text-gray-500 block mb-6">Our Philosophy</span>
-                <h2 class="font-sans text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[1.1] tracking-tight text-white">
-                    Crafted for <br>
-                    the rebels, <br>
-                    built for <br>
-                    the future.
-                </h2>
-            </div>
-
-            <div class="reveal opacity-0 translate-y-10 transition-all duration-1000 delay-300 ease-out md:w-1/2 md:pt-20">
-                <div class="space-y-6 md:space-y-8">
-                    <p class="text-xl md:text-2xl text-gray-200 font-medium leading-relaxed">
-                        Kids don't just wear clothes; they live in them. They are the dreamers, the rule-breakers, and the tiny architects of what comes next.
-                    </p>
+        <section id="our-story" data-theme="dark" class="py-12 md:py-20 bg-[#0a0a0a] text-white overflow-hidden">
+            <div class="max-w-[1000px] mx-auto px-6">
+                <div class="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
                     
-                    <p class="text-base md:text-lg text-gray-400 leading-relaxed">
-                        We’ve dedicated countless hours to sourcing fabrics that withstand the chaos of play while maintaining the sharp edge of urban fashion. Every stitch is a commitment to durability; every drop is a tribute to individuality. We don't just provide outfits—we provide the armor for their journey.
-                    </p>
-
-                    <div class="pt-6">
-                        <a href="#inventory-teaser" class="inline-flex items-center bg-white text-black px-8 py-4 rounded-full group transition-transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                            <span class="text-xs font-black uppercase tracking-widest mr-4 font-sans">Explore Inventory</span>
-                            <div class="bg-black text-white p-1 rounded-full transition-transform group-hover:rotate-45">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" /></svg>
-                            </div>
-                        </a>
+                    <div class="reveal opacity-0 -translate-x-10 transition-all duration-1000 ease-out md:w-1/2">
+                        <span class="font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-gray-500 block mb-4">Our Philosophy</span>
+                        <h2 class="font-sans text-3xl md:text-4xl lg:text-5xl font-black uppercase leading-[1.1] tracking-tight text-white">
+                            Crafted for <br>
+                            the rebels, <br>
+                            built for <br>
+                            the future.
+                        </h2>
                     </div>
+        
+                    <div class="reveal opacity-0 translate-y-10 transition-all duration-1000 delay-300 ease-out md:w-1/2 md:pt-10">
+                        <div class="space-y-5 md:space-y-6">
+                            <p class="font-sans text-base md:text-lg text-gray-200 font-medium leading-relaxed">
+                                Kids don't just wear clothes; they live in them. They are the dreamers, the rule-breakers, and the tiny architects of what comes next.
+                            </p>
+                            
+                            <p class="font-sans text-xs md:text-sm text-gray-400 leading-relaxed font-normal">
+                                We’ve dedicated countless hours to sourcing fabrics that withstand the chaos of play while maintaining the sharp edge of urban fashion. Every stitch is a commitment to durability; every drop is a tribute to individuality.
+                            </p>
+        
+                            <div class="pt-4">
+                                <a href="#inventory-teaser" class="inline-flex items-center bg-white text-black px-6 py-3 rounded-full group transition-transform hover:scale-105 active:scale-95">
+                                    <span class="font-sans text-[10px] font-black uppercase tracking-widest mr-3">Explore Inventory</span>
+                                    <div class="bg-black text-white p-1 rounded-full transition-transform group-hover:rotate-45">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" /></svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+        
                 </div>
             </div>
-
-        </div>
-    </div>
-</section>
+        </section>
 
 <section id="features" class="py-12 md:py-16 bg-white text-black">
     <div class="max-w-[1100px] mx-auto px-6">
@@ -303,21 +319,26 @@
 
             <div class="flex flex-col md:items-end justify-between">
                 <div class="flex gap-4">
-                    <a href="#" class="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                    <a href="https://www.instagram.com/lolakiddieswear?igsh=c3VhZmMxcmZpN25h&utm_source=qr" 
+                       target="_blank" 
+                       class="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     </a>
-                    <a href="#" class="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                    <a href="https://www.tiktok.com/@lolakiddieswear" 
+                       target="_blank" 
+                       class="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
                     </a>
                 </div>
                 
                 <div class="mt-10 md:mt-0 text-left md:text-right">
                     <p class="text-[10px] uppercase tracking-[0.3em] text-gray-600 mb-2">Developed by</p>
-                    <h3 class="font-sans text-xl font-black uppercase tracking-tighter">MINCE DESIGNS</h3>
+                    <a href="mailto:alawodewisdom02@gmail.com" class="font-sans text-xl font-black uppercase tracking-tighter hover:text-gray-400 transition-colors">
+                        MINCE DESIGNS
+                    </a>
                 </div>
             </div>
-        </div>
-
+                 
         <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p class="text-[10px] uppercase tracking-widest text-gray-500">© 2026 Lola Kiddies Wear. All rights reserved.</p>
             <div class="flex gap-8 text-[10px] uppercase tracking-widest text-gray-500">
