@@ -175,3 +175,89 @@ window.addEventListener('beforeunload', () => {
     if (slideInterval) clearInterval(slideInterval);
     gsap.killTweensOf("*");
 });
+// Register GSAP ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- 1. HERO CAROUSEL LOGIC ---
+    const slides = document.querySelectorAll('.slide');
+    const bars = document.querySelectorAll('.bar-inner');
+    let currentSlide = 0;
+    const slideDuration = 5000; // 5 seconds
+
+    function showSlide(index) {
+        // Reset all slides and bars
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+            gsap.to(slide, { opacity: 0, duration: 1 });
+        });
+        bars.forEach(bar => gsap.set(bar, { width: "0%" }));
+
+        // Activate current slide
+        slides[index].classList.add('active');
+        gsap.to(slides[index], { opacity: 1, duration: 1 });
+
+        // Animate the progress bar
+        gsap.to(bars[index], { 
+            width: "100%", 
+            duration: slideDuration / 1000, 
+            ease: "none" 
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    // Start Carousel
+    showSlide(0);
+    setInterval(nextSlide, slideDuration);
+
+
+    // --- 2. HEADER SCROLL EFFECT ---
+    const header = document.getElementById('main-header');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('bg-black/80', 'backdrop-blur-xl', 'py-4');
+            header.classList.remove('py-6');
+        } else {
+            header.classList.remove('bg-black/80', 'backdrop-blur-xl', 'py-4');
+            header.classList.add('py-6');
+        }
+    });
+
+
+    // --- 3. SCROLL REVEAL ANIMATIONS ---
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+
+    revealElements.forEach((el) => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 85%", // Starts when element is 85% from top of viewport
+                toggleActions: "play none none none"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power4.out"
+        });
+    });
+
+    // Specific animation for product images (zoom effect on scroll)
+    gsap.utils.toArray('.group img').forEach(img => {
+        gsap.to(img, {
+            scrollTrigger: {
+                trigger: img,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            },
+            scale: 1.1,
+            ease: "none"
+        });
+    });
+});
